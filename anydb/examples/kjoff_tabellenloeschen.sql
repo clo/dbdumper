@@ -120,3 +120,5 @@ DELETE * FROM tbl_sys_scheduler;
 DELETE * FROM tbl_sys_task;
 DELETE * FROM tbl_r_gutschrift;
 DELETE * FROM tbl_r_gutschrift_position;
+DELETE * FROM tbl_k_zahlung_kategorie;
+DELETE * FROM tbl_k_zahlung;
