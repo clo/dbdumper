@@ -1,3 +1,3 @@
 z:
-cd Z:\LOC\dbdumper\anydb\examples
-Z:\LOC\PHP\php.exe -q exportToSql.php > kjoff_export.sql
+cd Z:\LOC\kjoff\dbdumper\anydb\examples
+Z:\LOC\PHP\php.exe -q exportToSql_mitdaten.php > kjoff_export.sql
