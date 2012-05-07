@@ -55,14 +55,17 @@ class Exporter extends UtilityClass {
 *
 * @returns  Array       the table data
 */
-function getDB(& $db, $type = ANYDB_DUMP_SQL, $seperator = "\t") {
+function getDB(& $db, $type = ANYDB_DUMP_SQL, $seperator = "\t",$debug=false) {
     $res = array();
     $tables = $db->getTables();
     if (@sizeof($tables) == 0) {
         die('dumpDB(): No tables found...');
     }
     foreach ($tables as $table) {
-        $res[$table] = Exporter::getTable($db, $table, $type, $seperator) . "\n";
+       if ($debug) { 
+	     echo "table: ".$table."\n";
+	   }
+	   $res[$table] = Exporter::getTable($db, $table, $type, $seperator,$debug) . "\n";
     }
     return $res;
 }
@@ -80,7 +83,7 @@ function getDB(& $db, $type = ANYDB_DUMP_SQL, $seperator = "\t") {
 *
 * @returns  Array       the table data
 */
-function getTable(& $db, $table, $type = ANYDB_DUMP_SQL, $seperator = "\t") {
+function getTable(& $db, $table, $type = ANYDB_DUMP_SQL, $seperator = "\t",$debug=false) {
     $res = '';
     $first = true;
     // get all the data
@@ -92,6 +95,9 @@ function getTable(& $db, $table, $type = ANYDB_DUMP_SQL, $seperator = "\t") {
         switch ($type) {
             case ANYDB_DUMP_SQL:
                 $res .= QueryHelper::insert($table, $line) . ";\n";
+				if ($debug){
+				  echo $res."\n";
+				}
                 break;
             case ANYDB_DUMP_CSV:
                 if ($first) {

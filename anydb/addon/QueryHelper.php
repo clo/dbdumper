@@ -132,7 +132,8 @@ function insert($table, $values, $smartQuotes = true, $addon = '', $statementAdd
         $vals = $values;
     }
     $query = sprintf($str, $statementAddon, $table, $cols, $vals, $addon);
-    return $query;
+    echo $query."\n";
+	return $query;
 }
 
 ////////////////////////////////////////////////////////////////////////
