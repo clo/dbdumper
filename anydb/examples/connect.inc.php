@@ -9,9 +9,9 @@ $host = $database;
 $user = '';
 $password = '';
 $dbType = 'mysql';
-echo "-- connecting to :".$database."\n";
+if ($debug) echo "-- connecting to :".$database."\n";
 
-$db = anyDB::getLayer('ODBC','',$dbType,$debug);
+$db = anyDB::getLayer('ODBC','',$dbType);
 
 $db->connect($host, $database, $user, $password);
 ?>

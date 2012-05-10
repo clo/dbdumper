@@ -1,4 +1,7 @@
 <?php
+//if (ob_get_contents() != '' ){
+  ob_end_flush();
+//}
 if (preg_match("/--help|-h|-help/",$argv[1])){
   usage();
   exit(1);
@@ -11,12 +14,13 @@ if (isset($argv[1])){
   $database = "kjoff_mitdaten";
 }
 
-if (isset($argv[2])){
-  $debug = $argv[2];
+if (isset($argv[2]) && preg_match("/debug|true|1/i",$argv[2])){
+  $debug = true;
+  echo "DEBUG MODE";
+  error_reporting(E_ALL);
 }else{
   $debug = false;
 }
-
 
 require "connect.inc.php";
 require "../addon/Exporter.php";
@@ -30,18 +34,15 @@ function usage(){
 }
 
 // export table content as sql statements
-$sqlData = Exporter::getDB($db, ANYDB_DUMP_SQL,true);
-
+$sqlData = Exporter::getDB($db, ANYDB_DUMP_SQL, ';',$debug);
 foreach($sqlData as $key => $data) {
-    //echo "$key<br>";
-    //echo nl2br($data);
-    if (preg_match("/$INSERT INTO tbl_/",$data)) {
-      echo $data;
-    }
+  //if (preg_match("/$INSERT INTO tbl_/",$data)) {
+    echo $data;
+  //}
 }
 
 require "disconnect.inc.php";
 ////////////////////////////////////////////////////////////////////////
-echo '<hr>';
-highlight_file(__FILE__);
+//echo '<hr>';
+//highlight_file(__FILE__);
 ?>
